@@ -1,0 +1,19 @@
+
+{
+  "secret": "secret",
+  "port": 3000,
+  "seneca": {
+    "administrator": {
+      "port": 10103
+    },
+    "manufacturer": {
+      "port": 10102
+    },
+    "device": {
+      "port": 10104
+    },
+    "customer": {
+      "port": 10101
+    }
+  }
+}

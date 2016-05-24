@@ -1,16 +1,30 @@
 var router = require('express').Router();
 var ResourceRouter = require('./lib/resource-router');
+var senecaLib = require('seneca');
+var nconf = require('nconf');
 
-router.use(ResourceRouter('administrators', 'AdministratorAccount'));
+var administratorClient = senecaLib()
+  .client({port: nconf.get('seneca:administrator:port')});
 
-router.use(ResourceRouter('roles', 'Role'));
+var manufacturerClient = senecaLib()
+  .client({port: nconf.get('seneca:manufacturer:port')});
 
-router.use(ResourceRouter('permissions', 'Permission'));
+var deviceClient = senecaLib()
+  .client({port: nconf.get('seneca:device:port')});
 
-router.use(ResourceRouter('devices', 'Device'));
+var customerClient = senecaLib()
+  .client({port: nconf.get('seneca:customer:port')});
 
-router.use(ResourceRouter('customers', 'CustomerAccount'));
+router.use(ResourceRouter('administrators', 'AdministratorAccount', administratorClient));
 
-router.use(ResourceRouter('manufacturers', 'ManufacturerAccount'));
+router.use(ResourceRouter('roles', 'Role', administratorClient));
+
+router.use(ResourceRouter('permissions', 'Permission', administratorClient));
+
+router.use(ResourceRouter('devices', 'Device', deviceClient));
+
+router.use(ResourceRouter('customers', 'CustomerAccount', customerClient));
+
+router.use(ResourceRouter('manufacturers', 'ManufacturerAccount', manufacturerClient));
 
 module.exports = router;

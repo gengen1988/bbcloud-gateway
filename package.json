@@ -11,6 +11,7 @@
     "express": "^4.13.4",
     "jsonwebtoken": "^7.0.0",
     "morgan": "^1.7.0",
+    "nconf": "^0.8.4",
     "seneca": "^2.1.0"
   },
   "devDependencies": {},
